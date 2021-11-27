@@ -1,5 +1,5 @@
-import Header from "./components/Layout/Header";
-import Meals from "./components/Meals/Meals";
+import Header from './components/Layout/Header'
+import Meals from './components/Meals/Meals'
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <Meals />
       </main>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
