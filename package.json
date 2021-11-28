@@ -1,5 +1,6 @@
 {
   "name": "food-order-app",
+  "homepage": "https://weichieh123.github.io/FoodOrderApp/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
