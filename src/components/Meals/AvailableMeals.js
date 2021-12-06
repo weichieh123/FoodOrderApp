@@ -1,36 +1,42 @@
+import { useEffect, useState } from 'react'
+
 import classes from './AvailableMeals.module.css'
 import Card from '../UI/Card'
 import MealItem from './MealItem/MealItem'
 
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-]
-
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [ meals, setMeals] = useState([])
+
+  /*
+    如何在useEffect裡使用async await
+    The function you pass to useEffect should not return a promise.
+    Instead, the function you pass to useEffect may return a cleanup function which can be executed.
+    That cleanup function should run synchronously though.
+    It should not return a promise
+  */
+  useEffect(() => {
+    const fetchMeals = async () =>{
+      const res = await fetch('https://food-order-55733-default-rtdb.firebaseio.com/meals.json')
+      const resData = await res.json()
+
+      // change firebase data from obj to array
+      const loadedMeals = []
+      for (const key in resData) {
+        loadedMeals.push({
+          id: key,
+          name: resData[key].name,
+          description: resData[key].description,
+          price: resData[key].price,
+        })
+      }
+      setMeals(loadedMeals)
+
+    }
+    fetchMeals()
+
+  }, [])
+
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}
