@@ -49,10 +49,17 @@ const Checkout = (props) => {
     if (!formIsValid) {
       return
     }
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      postal: enteredPostal,
+      city: enteredCity,
+    })
     resetNameInput()
     resetStreetInput()
     resetPostalInput()
     resetCityInput()
+    
   }
 
   const nameControlClasses = `${classes.control} ${!nameHasError ? '' : classes.invalid}`
